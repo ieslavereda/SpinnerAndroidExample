@@ -3,13 +3,20 @@ package es.ieslavereda.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private Spinner spinner;
     private Spinner simpleSpinner;
+    private TextView descripcion;
+    private ImageView icon;
+    private ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,29 +25,31 @@ public class MainActivity extends AppCompatActivity {
 
         simpleSpinner = findViewById(R.id.simple_spinner);
         spinner = findViewById(R.id.custom_spinner);
+        descripcion = findViewById(R.id.description);
+        icon = findViewById(R.id.icon);
+        image = findViewById(R.id.image);
 
-        simpleSpinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,Sexo.values()));
+        simpleSpinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Sexo.values()));
+        spinner.setAdapter(new CustomArrayAdapter<>(this, R.layout.custom_spinner_item, Sexo.values()));
 
-        spinner.setAdapter(new CustomArrayAdapter<Sexo>(this,R.layout.custom_spinner_item,Sexo.values()));
+        simpleSpinner.setOnItemSelectedListener(this);
+        spinner.setOnItemSelectedListener(this);
 
     }
 
-    public enum Sexo implements Listable{
-        HOMBRE,MUJER;
 
-        @Override
-        public String getDescription() {
-            return this.name();
-        }
 
-        @Override
-        public int getDrawableSimbol() {
-            return this.equals(HOMBRE)?R.drawable.s_mas:R.drawable.s_fem;
-        }
 
-        @Override
-        public int getDrawableImage() {
-            return this.equals(HOMBRE)?R.drawable.i_mas:R.drawable.i_fem;
-        }
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        descripcion.setText(((Listable)adapterView.getSelectedItem()).getDescription());
+        icon.setImageResource(((Listable)adapterView.getSelectedItem()).getDrawableSimbol());
+        image.setImageResource(((Listable)adapterView.getSelectedItem()).getDrawableImage());
     }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
 }
