@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
         simpleSpinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,Sexo.values()));
 
-        spinner.setAdapter(new CustomArrayAdapter<Sexo>(this,android.R.layout.simple_spinner_item,Sexo.values()));
+        spinner.setAdapter(new CustomArrayAdapter<Sexo>(this,R.layout.custom_spinner_item,Sexo.values()));
 
     }
 
@@ -29,18 +29,18 @@ public class MainActivity extends AppCompatActivity {
         HOMBRE,MUJER;
 
         @Override
-        public String getText() {
+        public String getDescription() {
             return this.name();
         }
 
         @Override
         public int getDrawableSimbol() {
-            return (Sexo.valueOf(this.name()).equals(HOMBRE))?R.drawable.s_mas:R.drawable.s_fem;
+            return this.equals(HOMBRE)?R.drawable.s_mas:R.drawable.s_fem;
         }
 
         @Override
         public int getDrawableImage() {
-            return (Sexo.valueOf(this.name()).equals(HOMBRE))?R.drawable.i_mas:R.drawable.i_fem;
+            return this.equals(HOMBRE)?R.drawable.i_mas:R.drawable.i_fem;
         }
     }
 }

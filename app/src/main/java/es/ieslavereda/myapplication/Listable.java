@@ -1,7 +1,7 @@
 package es.ieslavereda.myapplication;
 
 public interface Listable {
-    String getText();
+    String getDescription();
     int getDrawableSimbol();
     int getDrawableImage();
 }

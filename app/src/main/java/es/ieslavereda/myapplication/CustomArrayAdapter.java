@@ -12,15 +12,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CustomArrayAdapter<T extends Listable> extends ArrayAdapter<T> {
 
-    private List<T> objects;
-    public CustomArrayAdapter(@NonNull Context context, int resource, @NonNull T[] objects) {
+    private int resource;
+
+    public CustomArrayAdapter(@NonNull Context context, int resource, @NonNull List<T> objects) {
         super(context, resource, objects);
-        this.objects = new ArrayList<>(Arrays.asList(objects));
+        this.resource = resource;
+    }
+    public CustomArrayAdapter(@NonNull Context context, int resource, @NonNull T[] objects) {
+        this(context, resource, new ArrayList<>(List.of(objects)));
     }
 
     @NonNull
@@ -29,16 +32,16 @@ public class CustomArrayAdapter<T extends Listable> extends ArrayAdapter<T> {
 
         View listItem = convertView;
         if(listItem == null)
-            listItem = LayoutInflater.from(getContext()).inflate(R.layout.spinner,parent,false);
+            listItem = LayoutInflater.from(getContext()).inflate(resource,parent,false);
 
-        T object = objects.get(position);
+        T object = getItem(position);
 
         ImageView image = listItem.findViewById(R.id.imageView);
 
         image.setImageResource(object.getDrawableSimbol());
 
         TextView name = listItem.findViewById(R.id.text);
-        name.setText(object.getText());
+        name.setText(object.getDescription());
 
         return listItem;
     }
@@ -47,16 +50,16 @@ public class CustomArrayAdapter<T extends Listable> extends ArrayAdapter<T> {
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItem = convertView;
         if(listItem == null)
-            listItem = LayoutInflater.from(getContext()).inflate(R.layout.spinner,parent,false);
+            listItem = LayoutInflater.from(getContext()).inflate(resource,parent,false);
 
-        T object = objects.get(position);
+        T object = getItem(position);
 
         ImageView image = listItem.findViewById(R.id.imageView);
 
         image.setImageResource(object.getDrawableImage());
 
         TextView name = listItem.findViewById(R.id.text);
-        name.setText(object.getText());
+        name.setText(object.getDescription());
 
         return listItem;
     }
