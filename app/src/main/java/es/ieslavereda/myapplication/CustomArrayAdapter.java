@@ -34,14 +34,13 @@ public class CustomArrayAdapter<T extends Listable> extends ArrayAdapter<T> {
         if(listItem == null)
             listItem = LayoutInflater.from(getContext()).inflate(resource,parent,false);
 
-        T object = getItem(position);
-
-        ImageView image = listItem.findViewById(R.id.imageView);
-
-        image.setImageResource(object.getDrawableSimbol());
+        T item = getItem(position);
 
         TextView name = listItem.findViewById(R.id.text);
-        name.setText(object.getDescription());
+        ImageView image = listItem.findViewById(R.id.imageView);
+
+        name.setText(item.getDescription());
+        image.setImageResource(item.getDrawableSimbol());
 
         return listItem;
     }
@@ -52,14 +51,13 @@ public class CustomArrayAdapter<T extends Listable> extends ArrayAdapter<T> {
         if(listItem == null)
             listItem = LayoutInflater.from(getContext()).inflate(resource,parent,false);
 
-        T object = getItem(position);
-
-        ImageView image = listItem.findViewById(R.id.imageView);
-
-        image.setImageResource(object.getDrawableImage());
+        T item = getItem(position);
 
         TextView name = listItem.findViewById(R.id.text);
-        name.setText(object.getDescription());
+        ImageView image = listItem.findViewById(R.id.imageView);
+
+        name.setText(item.getDescription());
+        image.setImageResource(item.getDrawableImage());
 
         return listItem;
     }
